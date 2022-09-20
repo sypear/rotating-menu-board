@@ -2,7 +2,11 @@
 
 body {
     font-family: 'Noto Sans KR', sans-serif;
-    background-color: #ffefe7;
+    background-color: #edb4a4;
+}
+
+button {
+    font-family: 'Noto Sans KR', sans-serif;
 }
 
 .menu {
@@ -29,10 +33,11 @@ body {
     width: 250px;
     height: 300px;
 
-    /*
-        부모 컨테이너에게서 원근감을 자식, 자손 요소들에게도 전달해주기 위함
-    */
+    /* 부모 컨테이너에게서 원근감을 자식, 자손 요소들에게도 전달해주기 위함 */
     transform-style: preserve-3d;
+
+    /* rotateY 변경 시 transition 효과 */
+    transition: transform 250ms;
 }
 
 .menu-list li {
@@ -166,4 +171,31 @@ body {
         Y축 : 324도만큼 회전
     */
     transform: rotateY(calc(360deg/10*9)) translateZ(calc(250*10px/2/3.14));
+}
+
+/* 메뉴 이동 버튼 */
+.move-button {
+    position: fixed;
+    top: 50%;
+    width: 80px;
+    height: 80px;
+    border: none;
+    border-radius: 100%;
+    background: transparent;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center center;
+    cursor: pointer;
+}
+
+.move-button.left {
+    left: 15%;
+    transform: translate(-15%, -50%);
+    background-image: url('../icons/left.png');
+}
+
+.move-button.right {
+    right: 15%;
+    transform: translate(15%, -50%);
+    background-image: url('../icons/right.png');
 }
