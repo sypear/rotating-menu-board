@@ -1,0 +1,169 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap');
+
+body {
+    font-family: 'Noto Sans KR', sans-serif;
+    background-color: #ffefe7;
+}
+
+.menu {
+    /* 화면을 꽉 채움 */
+    width: 100vw;
+    height: 100vh;
+
+    /*
+        원근감을 주기 위해 perspective 속성 적용
+        perspective는 컨테이너에 설정해야 하기 때문에 menu class에 설정.
+        그러나 perspective는 자신의 직계 자식에만 영향을 미치기 때문에 menu-list의 아이템에는 영향을 미치지 못함.
+    */
+    perspective: 2500px; /* 이 값이 작을수록 회전하는 요소에 가까이 다가감. 클수록 멀어짐. */
+}
+
+.menu-list {
+    /* menu-list가 화면 정가운데에 위치하도록 함 */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotateY(0deg); /* 회전목마 초기 회전 각도는 0deg로 설정 */
+
+    /* 크기는 width: 250px, height: 300px으로 고정 */
+    width: 250px;
+    height: 300px;
+
+    /*
+        부모 컨테이너에게서 원근감을 자식, 자손 요소들에게도 전달해주기 위함
+    */
+    transform-style: preserve-3d;
+}
+
+.menu-list li {
+    /* menu-list의 item들이 menu-list 왼쪽 상단 좌표를 기준으로 전부 위치하게 함. 겹쳐진 카드처럼 되도록 */
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    /* 부모의 width만큼 공간을 차지하도록 함 */
+    width: 100%;
+
+    /* 상하좌우 간격 40px */
+    padding: 40px;
+
+    /* 회전목마 회전 시 뒷면인 카드들은 보이지 않도록 설정 */
+    backface-visibility: hidden;
+
+    /* 기타 스타일 설정 */
+    border-radius: 10px;
+    background-color: #FFF;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+}
+
+.menu-list li img {
+    /* img 크기가 부모의 width, height의 80%가 되도록 함 */
+    display: block;
+    width: 80%;
+    height: 80%;
+
+    /* 가운데 정렬 */
+    margin: 0 auto 30px;
+
+    /* 주어진 공간 안에서 잘리지 않는 한도 내에서(비율을 유지하며) 최대 크기를 차지하도록 함 */
+    object-fit: contain;
+}
+
+.menu-desc {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.menu-desc h3 {
+    margin-bottom: 20px;
+    font-size: 18px;
+    font-weight: 700;
+    color: #202020;
+}
+
+.menu-desc strong {
+    font-weight: 500;
+    color: #464646;
+}
+
+/*
+    회전목마 형태로 만들기!
+        회전목마 형태로 만들기 위해서는 내가 만든 카드들을 원 모양으로 배치해야 한다.
+        그리고 각 카드들은 가운데 중심점을 기준으로 반지름 길이만큼 떨어져있어야 한다.
+            반지름 길이 구하는 공식 : 원 둘레 / 2 / PI
+            원 둘레는 어떻게 구할까 : 내가 만든 카드들의 width들을 전부 이어붙이면 원 둘레가 된다.
+
+        또, 원처럼 배치하기 위해서 각 카드들의 Y축 각도가 달라야 한다.
+            회전 각도는 어떻게 구할까 : 360도 / 이미지 개수
+            첫번째는 각도를 0으로, 두번째는 (계산한 회전 각도 * 1), 세번쨰라면 (계산한 회전 각도 * 2)... 이런식으로 하면 마지막 이미지는 (360도 - 회전 각도)가 되어 원을 만들 수 있다!
+*/
+.menu-list li:nth-child(1) {
+    /*
+        Y축 : 회전하지 않음
+    */
+    transform: rotateY(0) translateZ(calc(250*10px/2/3.14));
+}
+
+.menu-list li:nth-child(2) {
+    /*
+        Y축 : 36도만큼 회전
+    */
+    transform: rotateY(calc(360deg/10)) translateZ(calc(250*10px/2/3.14));
+}
+
+.menu-list li:nth-child(3) {
+    /*
+        Y축 : 72도만큼 회전
+    */
+    transform: rotateY(calc(360deg/10*2)) translateZ(calc(250*10px/2/3.14));
+}
+
+.menu-list li:nth-child(4) {
+    /*
+        Y축 : 108도만큼 회전
+    */
+    transform: rotateY(calc(360deg/10*3)) translateZ(calc(250*10px/2/3.14));
+}
+
+.menu-list li:nth-child(5) {
+    /*
+        Y축 : 144도만큼 회전
+    */
+    transform: rotateY(calc(360deg/10*4)) translateZ(calc(250*10px/2/3.14));
+}
+
+.menu-list li:nth-child(6) {
+    /*
+        Y축 : 180도만큼 회전
+    */
+    transform: rotateY(calc(360deg/10*5)) translateZ(calc(250*10px/2/3.14));
+}
+
+.menu-list li:nth-child(7) {
+    /*
+        Y축 : 216도만큼 회전
+    */
+    transform: rotateY(calc(360deg/10*6)) translateZ(calc(250*10px/2/3.14));
+}
+
+.menu-list li:nth-child(8) {
+    /*
+        Y축 : 252도만큼 회전
+    */
+    transform: rotateY(calc(360deg/10*7)) translateZ(calc(250*10px/2/3.14));
+}
+
+.menu-list li:nth-child(9) {
+    /*
+        Y축 : 288도만큼 회전
+    */
+    transform: rotateY(calc(360deg/10*8)) translateZ(calc(250*10px/2/3.14));
+}
+
+.menu-list li:nth-child(10) {
+    /*
+        Y축 : 324도만큼 회전
+    */
+    transform: rotateY(calc(360deg/10*9)) translateZ(calc(250*10px/2/3.14));
+}
