@@ -175,8 +175,6 @@ button {
 
 /* 메뉴 이동 버튼 */
 .move-button {
-    position: fixed;
-    top: 50%;
     width: 80px;
     height: 80px;
     border: none;
@@ -188,14 +186,17 @@ button {
     cursor: pointer;
 }
 
+.button-wrapper {
+    position: fixed;
+    bottom: 20%;
+    left: 50%;
+    transform: translate(-50%, 20%);
+}
+
 .move-button.left {
-    left: 15%;
-    transform: translate(-15%, -50%);
     background-image: url('../icons/left.png');
 }
 
 .move-button.right {
-    right: 15%;
-    transform: translate(15%, -50%);
     background-image: url('../icons/right.png');
 }
